@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "build:static": "STATIC_EXPORT=true next build",
-    "preview:static": "npx --yes serve@14 out -l 4000"
+    "preview:static": "npx --yes serve@14 out -l 4000",
+    "build:preview": "STATIC_EXPORT=true next build && rm -rf preview && cp -r out preview && node scripts/make-relative.mjs preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^6.0.1",

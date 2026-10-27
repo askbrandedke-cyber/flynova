@@ -3,6 +3,7 @@
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, ArrowRight, Headphones, Stamp } from "lucide-react";
+import Image from "next/image";
 import { useRef } from "react";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { ButtonLink } from "@/components/ui/Button";
@@ -53,6 +54,8 @@ export function Hero() {
     <section ref={ref} className="relative isolate flex min-h-[680px] items-center overflow-hidden bg-forest-950 pt-28 pb-44 text-white sm:pb-52 lg:h-[100svh] lg:min-h-[760px]">
       <motion.div style={{ y: imageY }} className="absolute inset-0 -z-20">
         <div className="absolute inset-0 animate-kenburns">
+          {/* Local backdrop: visible even if the remote photo or JavaScript is unavailable. */}
+          <Image src={brandImages.sunsetFlight} alt="" fill priority sizes="100vw" className="object-cover" />
           <SmartImage src={photos.heroWing} fallback={brandImages.sunsetFlight} alt="" fill priority sizes="100vw" className="object-cover" quality={75} />
         </div>
       </motion.div>

@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { MobileBookBar } from "@/components/layout/MobileBookBar";
+import { HydrationFlag } from "@/components/layout/HydrationFlag";
 import { site } from "@/lib/site";
 
 const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"], display: "swap" });
@@ -50,6 +51,12 @@ export const viewport: Viewport = {
   themeColor: "#004721",
 };
 
+/** If the app hasn't hydrated within 2.5s, reveal animated content statically (see globals.css). */
+const motionFallbackScript =
+  "setTimeout(function(){if(!window.__fnReady)document.documentElement.classList.add('motion-fallback')},2500)";
+const noScriptStyle =
+  '[style*="opacity:0"]{opacity:1!important;transform:none!important}[style*="translateY(105%)"]{transform:none!important}';
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "TravelAgency",
@@ -70,8 +77,15 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${fraunces.variable} antialiased`}>
+    <html lang="en" className={`${jakarta.variable} ${fraunces.variable} antialiased`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: motionFallbackScript }} />
+        <noscript>
+          <style dangerouslySetInnerHTML={{ __html: noScriptStyle }} />
+        </noscript>
+      </head>
       <body className="flex min-h-dvh flex-col">
+        <HydrationFlag />
         <MotionConfig reducedMotion="user">
           <Navbar />
           <main id="main" className="flex-1">

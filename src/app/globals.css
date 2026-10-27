@@ -141,3 +141,16 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+ * Fail-safe for when JavaScript can't run (blocked, very slow, or the page was opened
+ * straight from disk): show every animated element in its final, visible state.
+ * The class is added by a tiny inline script in the root layout, or via <noscript>.
+ */
+.motion-fallback [style*="opacity:0"] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.motion-fallback [style*="translateY(105%)"] {
+  transform: none !important;
+}
